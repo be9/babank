@@ -7,9 +7,9 @@ gem 'rails-api'
 gem 'pg'
 gem 'apipie-rails'
 gem 'kaminari'
+gem 'puma'
 
 group :development do
-  gem 'thin'
   gem 'ruby-progressbar'
 end
 
