@@ -10,4 +10,5 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'rspec_junit_formatter', '0.2.2'
 end
