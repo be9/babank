@@ -8,4 +8,6 @@ Rails.application.routes.draw do
 
     resources :accounts, only: %i(update)
   end
+
+  root to: -> hash { [404, {}, ["Not found"]] }
 end
