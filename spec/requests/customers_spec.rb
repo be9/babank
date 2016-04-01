@@ -24,7 +24,7 @@ RSpec.describe 'API 1 customers', type: :request do
     end
 
     it_should_behave_like "unauthorized" do
-      def do_it; do_get end
+      def do_default; do_get end
     end
 
     private
@@ -72,7 +72,7 @@ RSpec.describe 'API 1 customers', type: :request do
     end
 
     it_should_behave_like "unauthorized" do
-      def do_it; do_post end
+      def do_default; do_post end
     end
 
     private
@@ -130,7 +130,7 @@ RSpec.describe 'API 1 customers', type: :request do
     end
 
     it_should_behave_like "unauthorized" do
-      def do_it; do_put(customer.id) end
+      def do_default; do_put(customer.id) end
     end
 
     private

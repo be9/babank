@@ -11,11 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401045853) do
+ActiveRecord::Schema.define(version: 20160401073041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "accounts", force: :cascade do |t|
+    t.integer  "customer_id",               null: false
+    t.string   "name",                      null: false
+    t.decimal  "deposit",     default: 0.0, null: false
+    t.date     "closed_on"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "accounts", ["customer_id"], name: "index_accounts_on_customer_id", using: :btree
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",       null: false
@@ -23,4 +34,5 @@ ActiveRecord::Schema.define(version: 20160401045853) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "accounts", "customers"
 end
