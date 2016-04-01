@@ -1,4 +1,4 @@
-### Babank
+## Babank
 
 Babank is an implementation of a "Bank" API specified in [this document](https://github.com/be9/babank/blob/master/build_a_bank.md).
 Pronounce it as "baBANG".
@@ -32,7 +32,7 @@ Babank doesn't check if account has enough balance to make a transfer. This is i
 
 [Get transfers for a given account](https://babank-for-plaid.herokuapp.com/apipie/1/transfers/index.html) is probably the trickiest endpoint because it makes sure you won't request too many data at once. You must provide a date interval (start_date .. end_date) and then it enforces pagination on you. No more than one page (max. size 100) will be returned.
 
-### Things that I would do next..
+### Things that I would do next
 
 Now, this is a limited scope project, but here are things I would certainly add if I had more time:
 
