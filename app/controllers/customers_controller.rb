@@ -38,6 +38,8 @@ class CustomersController < ApplicationController
     end
   end
 
+  ##########################################################
+
   api :PUT, '/1/customers/:id', 'Update a customer record'
   api_version '1'
   description 'Updates customer information'
