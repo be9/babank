@@ -13,5 +13,9 @@ Rails.application.routes.draw do
     resources :transfers, only: %i(create update)
   end
 
-  root to: -> hash { [404, {}, ["Not found"]] }
+  e_404 = -> hash { [404, {}, ["Not found"]] }
+
+  root to: e_404
+
+  match '*foo', via: [:get, :post, :put, :patch, :delete], to: e_404
 end
