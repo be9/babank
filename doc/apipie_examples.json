@@ -1,4 +1,108 @@
 {
+  "accounts#create": [
+    {
+      "verb": "POST",
+      "path": "/api/1/customers/101/accounts",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "account[name]=Checking&account[deposit]=1.23",
+      "response_data": {
+        "id": 50,
+        "customer_id": 101,
+        "name": "Checking",
+        "deposit": "1.23",
+        "closed_on": null,
+        "created_at": "2016-04-01T08:27:26.509Z",
+        "updated_at": "2016-04-01T08:27:26.509Z"
+      },
+      "code": 201,
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "accounts#index": [
+    {
+      "verb": "GET",
+      "path": "/api/1/customers/100/accounts",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 49,
+          "customer_id": 100,
+          "name": "Cygbalt",
+          "deposit": "9.03",
+          "closed_on": null,
+          "created_at": "2016-04-01T08:27:26.444Z",
+          "updated_at": "2016-04-01T08:27:26.444Z"
+        }
+      ],
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "accounts#update": [
+    {
+      "verb": "PUT",
+      "path": "/api/1/accounts/51",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "account[name]=Laundry&account[closed_on]=2016-04-01",
+      "response_data": {
+        "id": 51,
+        "customer_id": 102,
+        "name": "Laundry",
+        "deposit": "2.18",
+        "closed_on": "2016-04-01",
+        "created_at": "2016-04-01T08:27:26.518Z",
+        "updated_at": "2016-04-01T08:27:26.532Z"
+      },
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "PUT",
+      "path": "/api/1/accounts/n0tf0und",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "account[name]=John+Doe",
+      "response_data": {
+        "message": "Couldn't find Account with 'id'=n0tf0und"
+      },
+      "code": 404,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "PUT",
+      "path": "/api/1/accounts/52",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "account[name]=",
+      "response_data": {
+        "errors": [
+          "Name can't be blank"
+        ],
+        "message": "Validation failed"
+      },
+      "code": 422,
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
   "customers#create": [
     {
       "verb": "POST",
@@ -9,10 +113,10 @@
       "query": null,
       "request_data": "customer[name]=John+Doe",
       "response_data": {
-        "id": 115,
+        "id": 105,
         "name": "John Doe",
-        "created_at": "2016-04-01T07:26:54.094Z",
-        "updated_at": "2016-04-01T07:26:54.094Z"
+        "created_at": "2016-04-01T08:27:26.621Z",
+        "updated_at": "2016-04-01T08:27:26.621Z"
       },
       "code": 201,
       "show_in_doc": 1,
@@ -48,10 +152,10 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 114,
-          "name": "Dolly Streich",
-          "created_at": "2016-04-01T07:26:54.045Z",
-          "updated_at": "2016-04-01T07:26:54.045Z"
+          "id": 104,
+          "name": "Raegan Murphy",
+          "created_at": "2016-04-01T08:27:26.586Z",
+          "updated_at": "2016-04-01T08:27:26.586Z"
         }
       ],
       "code": 200,
@@ -62,17 +166,17 @@
   "customers#update": [
     {
       "verb": "PUT",
-      "path": "/api/1/customers/116",
+      "path": "/api/1/customers/106",
       "versions": [
         "1"
       ],
       "query": null,
       "request_data": "customer[name]=John+Doe",
       "response_data": {
-        "id": 116,
+        "id": 106,
         "name": "John Doe",
-        "created_at": "2016-04-01T07:26:54.120Z",
-        "updated_at": "2016-04-01T07:26:54.138Z"
+        "created_at": "2016-04-01T08:27:26.638Z",
+        "updated_at": "2016-04-01T08:27:26.647Z"
       },
       "code": 200,
       "show_in_doc": 1,
@@ -95,7 +199,7 @@
     },
     {
       "verb": "PUT",
-      "path": "/api/1/customers/117",
+      "path": "/api/1/customers/107",
       "versions": [
         "1"
       ],
