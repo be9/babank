@@ -10,7 +10,7 @@ RSpec.describe 'API 1 customers', type: :request do
         expect(response).to be_success
       end
 
-      it 'returns customers with names' do
+      it 'returns customers with names', :show_in_doc do
         customer = create(:customer)
 
         do_get
@@ -38,7 +38,7 @@ RSpec.describe 'API 1 customers', type: :request do
 
   context 'POST /customers' do
     context 'when authorized', authorize: true do
-      it 'creates a customer' do
+      it 'creates a customer', :show_in_doc do
         do_post customer: { name: 'John Doe' }
 
         expect(response).to be_success
@@ -63,7 +63,7 @@ RSpec.describe 'API 1 customers', type: :request do
         expect(json_body).to eq({'message' => 'Missing parameter name'})
       end
 
-      it 'requires customer name to be non-blank' do
+      it 'requires customer name to be non-blank', :show_in_doc do
         do_post customer: { name: '' }
 
         expect(response.status).to eq(422)
@@ -88,7 +88,7 @@ RSpec.describe 'API 1 customers', type: :request do
     let(:customer) { create(:customer) }
 
     context 'when authorized', authorize: true do
-      it 'updates a customer' do
+      it 'updates a customer', :show_in_doc do
         do_put customer.id, customer: { name: 'John Doe' }
 
         expect(response).to be_success
@@ -101,7 +101,7 @@ RSpec.describe 'API 1 customers', type: :request do
         expect(customer.reload.name).to eq('John Doe')
       end
 
-      it 'responds with 404 if customer not found' do
+      it 'responds with 404 if customer not found', :show_in_doc do
         do_put 'n0tf0und', customer: { name: 'John Doe' }
 
         expect(response).to be_not_found
@@ -121,7 +121,7 @@ RSpec.describe 'API 1 customers', type: :request do
         expect(json_body).to eq({'message' => 'Missing parameter name'})
       end
 
-      it 'requires customer name to be non-blank' do
+      it 'requires customer name to be non-blank', :show_in_doc do
         do_put customer.id, customer: { name: '' }
 
         expect(response.status).to eq(422)

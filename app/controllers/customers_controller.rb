@@ -27,6 +27,7 @@ class CustomersController < ApplicationController
   api_version '1'
   description 'Create a new customer with a given name'
   param_group :customer
+  error code: 422, desc: 'Invalid attributes'
   def create
     customer = Customer.new(customer_params)
 
@@ -42,6 +43,8 @@ class CustomersController < ApplicationController
   description 'Updates customer information'
   param_group :customer
   param :id, String, required: true, desc: 'Customer ID'
+  error code: 422, desc: 'Invalid attributes'
+  error code: 404, desc: 'Not found'
   def update
     customer = Customer.find params[:id]
 

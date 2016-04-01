@@ -1,0 +1,115 @@
+{
+  "customers#create": [
+    {
+      "verb": "POST",
+      "path": "/api/1/customers",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "customer[name]=John+Doe",
+      "response_data": {
+        "id": 115,
+        "name": "John Doe",
+        "created_at": "2016-04-01T07:26:54.094Z",
+        "updated_at": "2016-04-01T07:26:54.094Z"
+      },
+      "code": 201,
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "POST",
+      "path": "/api/1/customers",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "customer[name]=",
+      "response_data": {
+        "errors": [
+          "Name can't be blank"
+        ],
+        "message": "Validation failed"
+      },
+      "code": 422,
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ],
+  "customers#index": [
+    {
+      "verb": "GET",
+      "path": "/api/1/customers",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 114,
+          "name": "Dolly Streich",
+          "created_at": "2016-04-01T07:26:54.045Z",
+          "updated_at": "2016-04-01T07:26:54.045Z"
+        }
+      ],
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "customers#update": [
+    {
+      "verb": "PUT",
+      "path": "/api/1/customers/116",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "customer[name]=John+Doe",
+      "response_data": {
+        "id": 116,
+        "name": "John Doe",
+        "created_at": "2016-04-01T07:26:54.120Z",
+        "updated_at": "2016-04-01T07:26:54.138Z"
+      },
+      "code": 200,
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "PUT",
+      "path": "/api/1/customers/n0tf0und",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "customer[name]=John+Doe",
+      "response_data": {
+        "message": "Couldn't find Customer with 'id'=n0tf0und"
+      },
+      "code": 404,
+      "show_in_doc": 0,
+      "recorded": true
+    },
+    {
+      "verb": "PUT",
+      "path": "/api/1/customers/117",
+      "versions": [
+        "1"
+      ],
+      "query": null,
+      "request_data": "customer[name]=",
+      "response_data": {
+        "errors": [
+          "Name can't be blank"
+        ],
+        "message": "Validation failed"
+      },
+      "code": 422,
+      "show_in_doc": 0,
+      "recorded": true
+    }
+  ]
+}
