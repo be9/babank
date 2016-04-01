@@ -15,6 +15,8 @@ class AccountsController < ApplicationController
     end
   end
 
+  ##########################################################
+
   api :GET, '/1/customers/:customer_id/accounts', 'List accounts for a given customer'
   api_version '1'
   description 'Get a full list of accounts'
@@ -44,6 +46,21 @@ class AccountsController < ApplicationController
       render status: :unprocessable_entity, json: { errors: account.errors.full_messages, message: 'Validation failed' }
     end
   end
+
+  ##########################################################
+
+  api :GET, '/1/accounts/:id', 'Get account information'
+  api_version '1'
+  description 'Get information for a specified account, including its balance'
+  param :id, String, required: true, desc: 'Account ID'
+  error code: 404, desc: 'Account not found'
+  def show
+    account = Account.find params[:id]
+
+    render json: account.as_json(methods: %i(balance))
+  end
+
+  ##########################################################
 
   api :PUT, '/1/accounts/:id', 'Update an account'
   api_version '1'

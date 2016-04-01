@@ -91,6 +91,42 @@ RSpec.describe 'API 1 accounts', type: :request do
 
   ##########################################################
 
+  context 'GET /accounts/:id' do
+    let(:account) { create(:account, deposit: 12.34, customer: customer) }
+
+    context 'when authorized', authorize: true do
+      it 'get account info', :show_in_doc do
+        do_get account.id
+
+        expect(response).to be_success
+
+        b = json_body
+        expect(b).to be_kind_of(Hash)
+        expect(b["id"]).to eq(account.id)
+        expect(b["balance"]).to eq('12.34')
+      end
+
+      it 'responds with 404 if account not found' do
+        do_get 'n0tf0und', account: { name: 'John Doe' }
+
+        expect(response).to be_not_found
+      end
+    end
+
+    it_should_behave_like "unauthorized"
+    it_should_behave_like "non-existing customer"
+
+    private
+
+    def do_get(id, opts = {})
+      super "/api/1/accounts/#{id}", opts
+    end
+
+    def do_default; do_get(0) end
+  end
+
+  ##########################################################
+
   context 'PUT /accounts/:id' do
     let(:account) { create(:account, customer: customer) }
 

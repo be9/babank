@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :accounts, only: %i(index create)
     end
 
-    resources :accounts, only: %i(update)
+    resources :accounts, only: %i(update show)
   end
 
   root to: -> hash { [404, {}, ["Not found"]] }
