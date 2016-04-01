@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401073041) do
+ActiveRecord::Schema.define(version: 20160401083207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,5 +34,20 @@ ActiveRecord::Schema.define(version: 20160401073041) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "transfers", force: :cascade do |t|
+    t.integer  "source_id",    null: false
+    t.integer  "target_id",    null: false
+    t.decimal  "amount",       null: false
+    t.date     "date",         null: false
+    t.date     "retracted_on"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "transfers", ["source_id"], name: "index_transfers_on_source_id", using: :btree
+  add_index "transfers", ["target_id"], name: "index_transfers_on_target_id", using: :btree
+
   add_foreign_key "accounts", "customers"
+  add_foreign_key "transfers", "accounts", column: "source_id"
+  add_foreign_key "transfers", "accounts", column: "target_id"
 end
