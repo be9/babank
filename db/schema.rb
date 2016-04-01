@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401083207) do
+ActiveRecord::Schema.define(version: 20160401123100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 20160401083207) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "transfers", ["source_id"], name: "index_transfers_on_source_id", using: :btree
-  add_index "transfers", ["target_id"], name: "index_transfers_on_target_id", using: :btree
+  add_index "transfers", ["source_id", "date"], name: "index_transfers_on_source_id_and_date", using: :btree
+  add_index "transfers", ["target_id", "date"], name: "index_transfers_on_target_id_and_date", using: :btree
 
   add_foreign_key "accounts", "customers"
   add_foreign_key "transfers", "accounts", column: "source_id"

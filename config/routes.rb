@@ -6,7 +6,10 @@ Rails.application.routes.draw do
       resources :accounts, only: %i(index create)
     end
 
-    resources :accounts, only: %i(update show)
+    resources :accounts, only: %i(update show) do
+      resources :transfers, only: :index
+    end
+
     resources :transfers, only: %i(create update)
   end
 

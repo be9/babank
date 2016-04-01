@@ -22,4 +22,32 @@ class ApplicationController < ActionController::API
 
     render json: { message: 'Access denied' }, status: :forbidden
   end
+
+  # Set up Link header according to paginated collection (see
+  # http://tools.ietf.org/html/rfc5988).
+  #
+  # Stolen from api-pagination gem by davidcelis.
+  def paginate(collection)
+    pages = {}
+
+    unless collection.first_page?
+      pages[:first] = 1
+      pages[:prev]  = collection.current_page - 1
+    end
+
+    unless collection.last_page?
+      pages[:last] = collection.total_pages
+      pages[:next] = collection.current_page + 1
+    end
+
+    links = []
+    url = request.original_url.sub(/\?.*$/, '')
+
+    pages.each do |k, v|
+      new_params = request.query_parameters.merge(page: v)
+      links << %(<#{url}?#{new_params.to_param}>; rel="#{k}")
+    end
+
+    headers['Link'] = links.join(', ') unless links.empty?
+  end
 end

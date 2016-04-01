@@ -7,6 +7,13 @@ class Transfer < ActiveRecord::Base
   validate :check_than_accounts_are_different
   validate :check_that_accounts_are_active
 
+  scope :related, -> account { where('transfers.source_id=:acc_id OR transfers.target_id=:acc_id',
+                                     acc_id: account.id) }
+
+  scope :period, -> sd, ed { where('transfers.date BETWEEN ? AND ?', sd, ed) }
+
+  scope :natural_order, -> { order(:date, :id) }
+
   private
 
   def check_than_accounts_are_different

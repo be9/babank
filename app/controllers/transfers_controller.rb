@@ -1,17 +1,19 @@
 class TransfersController < ApplicationController
   resource_description do
-    short 'Transfers'
+    short 'Transfers between accounts'
     formats %w(json)
     api_version "1"
   end
+
+  date_regex = /^\d{4}-\d{2}-\d{2}$/
 
   def_param_group :transfer do
     param :transfer, Hash, desc: 'Transfer info', required: true do
       param :source_id, String, desc: 'Source account ID'
       param :target_id, String, desc: 'Target account ID'
       param :amount, String, desc: 'Transfer amount'
-      param :date, /^\d{4}-\d{2}-\d{2}$/, desc: 'Operation date'
-      param :retracted_on, /^\d{4}-\d{2}-\d{2}$/, desc: 'Retraction date'
+      param :date, date_regex, desc: 'Operation date'
+      param :retracted_on, date_regex, desc: 'Retraction date'
     end
   end
 
@@ -53,6 +55,43 @@ class TransfersController < ApplicationController
     else
       render status: :unprocessable_entity, json: { errors: transfer.errors.full_messages, message: 'Validation failed' }
     end
+  end
+
+  ##########################################################
+
+  api :GET, '/1/accounts/:account_id/transfers', 'Get transfer history'
+  api_version '1'
+  description 'Retrieves transfer history for a given account'
+
+  param :account_id, String, required: true, desc: 'Account ID'
+  param :start_date, date_regex, required: true, desc: 'Start date'
+  param :end_date, date_regex, required: true, desc: 'End date'
+  param :per_page, String, desc: 'Records per page (default: 50, max: 100)'
+  param :page, String, desc: 'Page number'
+
+  error code: 404, desc: 'Account not found'
+  def index
+    account = Account.find params[:account_id]
+    start_date = Date.parse params[:start_date]
+    end_date = Date.parse params[:end_date]
+
+    per_page = [[1, (params[:per_page] || 50).to_i].max, 100].min
+
+    starting_balance = account.balance(start_date - 1)      # Not including start_date
+    ending_balance = account.balance(end_date)
+
+    transfers = Transfer.related(account).
+      period(start_date, end_date).
+      natural_order.
+      page(params[:page]).per(per_page)
+
+    paginate(transfers)
+
+    render json: {
+      transfers: transfers,
+      balance: { starting: starting_balance,
+                 ending: ending_balance }
+    }
   end
 
   private
